@@ -1,3 +1,5 @@
+// crt-terminal/packages/crt-terminal/src/index.ts
+
 import Terminal from './components/Terminal/Terminal';
 
 export { Terminal };

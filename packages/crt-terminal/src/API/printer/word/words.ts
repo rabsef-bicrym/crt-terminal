@@ -1,3 +1,5 @@
+// crt-terminal/packages/crt-termina/src/API/printer/word/words.ts
+
 import { Nullable } from '../../../utils/helpers';
 import type { Words } from '../../sentence/sentence';
 

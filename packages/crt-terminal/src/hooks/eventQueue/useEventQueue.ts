@@ -1,3 +1,5 @@
+// crt-terminal/packages/crt-terminal/src/hooks/eventQueue/useEventQueue.ts
+
 import { useState, useRef } from 'react';
 import { PrintableItem } from '../../API/printer';
 import { PrinterEvents, ClearEvent, PrintEvent } from './printerQueue/usePrinterQueue';
@@ -77,5 +79,5 @@ function useEventQueue() {
   };
 }
 
-export type { EventQueue, InterfaceEvent, EventQueueReturnType };
+export type { EventQueue, InterfaceEvent, EventQueueReturnType, PrintableItem };
 export { useEventQueue, PrinterEvents, TerminalEvents };

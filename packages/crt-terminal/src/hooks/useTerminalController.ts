@@ -1,3 +1,5 @@
+// crt-terminal/packages/crt-terminal/src/hooks/useTerminalController.ts
+
 import { useEffect, useRef, useState } from 'react';
 import {
   isMoveActions,

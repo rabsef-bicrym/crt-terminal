@@ -1,3 +1,5 @@
+// crt-terminal/packages/crt-terminal/src/hooks/eventQueue/useSubscribeEventQueue.ts
+
 import { useEffect, useState } from 'react';
 import { Nullable } from '../../utils/helpers';
 import { PrinterEvents, usePrinterQueue } from './printerQueue/usePrinterQueue';

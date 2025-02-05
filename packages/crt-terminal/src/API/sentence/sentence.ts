@@ -1,3 +1,5 @@
+// crt-terminal/packages/crt-termina/src/API/sentence/sentence.ts
+
 type AnchorCallback = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
 type ButtonCallback = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 

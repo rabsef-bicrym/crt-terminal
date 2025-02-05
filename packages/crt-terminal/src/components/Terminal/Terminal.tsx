@@ -1,3 +1,5 @@
+// crt-terminal/packages/crt-terminal/src/components/Terminal/Terminal.tsx
+
 import React from 'react';
 
 import { PrintableItem } from '../../API/printer';
@@ -31,6 +33,7 @@ type QueueInterface = ControllerQueue & SubscribeQueue;
 
 interface TerminalProps {
   onCommand: OnCommandCallback;
+  onLineComplete?: () => void; // CV
   queue: QueueInterface;
 
   prompt?: string;
@@ -52,6 +55,7 @@ interface TerminalProps {
 
 const Terminal = function Terminal({
   onCommand,
+  onLineComplete,
   queue,
   banner,
   prompt = '>\xa0',
@@ -62,7 +66,7 @@ const Terminal = function Terminal({
   printer: { printerSpeed = 20, charactersPerTick = 5 } = {},
 
   effects: { scanner = true, pixels = true, screenEffects = true, textEffects = true } = {},
-  focusOnMount = true
+  focusOnMount = true,
 }: TerminalProps) {
   const terminalApp = useTerminalApp();
   const {
@@ -72,6 +76,7 @@ const Terminal = function Terminal({
 
   const { state, handlers: screenHandlers } = useCommandScreen({
     printerConfig: { printerSpeed, charactersPerTick, afterPrintCallback: scrollDown },
+    onLineComplete, // CV
   });
 
   const commandLine = useCommandLine();
@@ -98,7 +103,12 @@ const Terminal = function Terminal({
     commandLine,
     commandScreen: { handlers: screenHandlers },
     loaderComponent,
-    interface: { banner, prompt, onCommand, queue },
+    interface: {
+      banner,
+      prompt,
+      onCommand,
+      queue,
+    },
     focusOnMount,
   });
   const { handleKeyboardDown, handleInputChange } = controllerHandlers;

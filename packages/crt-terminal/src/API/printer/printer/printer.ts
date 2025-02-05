@@ -1,3 +1,5 @@
+// crt-terminal/packages/crt-termina/src/API/printer/printer/printer.ts
+
 import { Nullable } from '../../../utils/helpers';
 import { Lines } from '../../sentence/sentence';
 import { printMultiline } from '../multiline/multiline';
@@ -23,6 +25,7 @@ interface PrinterRequest {
   newLine: boolean;
   state: Printer;
   charactersToPrint: number;
+  onLineComplete?: () => void; // CV
 }
 
 interface PrinterResponse {
@@ -40,6 +43,7 @@ const printer = ({
   wordFullyPrinted,
   newLine,
   charactersToPrint,
+  onLineComplete, // CV
 }: PrinterRequest): PrinterResponse => {
   const {
     remainingLines: remainingLinesNext,
@@ -52,6 +56,7 @@ const printer = ({
     wordFullyPrinted,
     newLine,
     charactersToPrint,
+    onLineComplete // CV
   });
 
   return {

@@ -1,3 +1,5 @@
+// crt-terminal/packages/crt-termina/src/API/printer/line/line.ts
+
 import { Nullable } from '../../../utils/helpers';
 import type { Words, Lines } from '../../sentence/sentence';
 import { printWords } from '../word/words';
@@ -61,6 +63,7 @@ interface PrintLineRequest {
   printedLine: Lines;
   charactersToPrint: number;
   wordFullyPrinted: boolean;
+  onLineComplete?: () => void; // CV
 }
 
 interface PrintLineResponse {
@@ -74,6 +77,7 @@ const printLine = ({
   printedLine,
   charactersToPrint,
   wordFullyPrinted: wordFullyPrintedPrev,
+  onLineComplete, // CV
 }: PrintLineRequest): PrintLineResponse => {
   const { words: printedWordsPrev } = printedLine;
 
@@ -89,7 +93,8 @@ const printLine = ({
   const firstWord = combineWords({ prevWord, nextWord, wordFullyPrinted: wordFullyPrintedPrev });
   const wordChunk = makeWordChunk({ firstWord, printedWords });
 
-  return {
+  /* CV Addition */
+  const response = {
     remainingLine: getRemainingLine({ remainingLine, remainingWords }),
     printedLine: {
       ...printedLine,
@@ -97,6 +102,22 @@ const printLine = ({
     },
     wordFullyPrinted,
   };
+
+  // If the line is fully printed, invoke the callback
+  if (!response.remainingLine && onLineComplete) {
+    onLineComplete(); // CV
+  }
+
+  return response;
+  /* CV elision */
+  // return {
+  //   remainingLine: getRemainingLine({ remainingLine, remainingWords }),
+  //   printedLine: {
+  //     ...printedLine,
+  //     words: appendWordChunk({ printedWordsPrev, wordChunk, wordFullyPrintedPrev }),
+  //   },
+  //   wordFullyPrinted,
+  // };
 };
 
 export type { PrintLineRequest, PrintLineResponse };

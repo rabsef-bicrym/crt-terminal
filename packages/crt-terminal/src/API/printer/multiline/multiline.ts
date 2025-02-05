@@ -1,3 +1,5 @@
+// crt-terminal/packages/crt-termina/src/API/printer/multiline/multiline.ts
+
 import { Nullable } from '../../../utils/helpers';
 import type { Lines } from '../../sentence/sentence';
 import { printLine } from '../line/line';
@@ -35,6 +37,7 @@ interface PrintMultilineRequest {
   wordFullyPrinted: boolean;
   newLine: boolean;
   charactersToPrint: number;
+  onLineComplete?: () => void; // CV
 }
 
 interface PrintMultilineResponse {
@@ -50,6 +53,7 @@ const printMultiline = ({
   wordFullyPrinted,
   newLine,
   charactersToPrint,
+  onLineComplete, // CV
 }: PrintMultilineRequest): PrintMultilineResponse => {
   const firstLine = remainingLines[0];
   if (!firstLine)
@@ -69,6 +73,7 @@ const printMultiline = ({
     printedLine: newLine ? { ...firstLine, words: [] } : printedLines[printedLines.length - 1],
     charactersToPrint,
     wordFullyPrinted,
+    onLineComplete, // CV
   });
 
   return {

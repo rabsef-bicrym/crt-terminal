@@ -1,3 +1,5 @@
+// crt-terminal/packages/crt-terminal/src/hooks/terminal/usePrinter.ts
+
 import { useState, useEffect, useRef } from 'react';
 import { Nullable } from '../../utils/helpers';
 import { printer, PrintableItem, PrinterResponse, createPrinterTask } from '../../API/printer';
@@ -22,9 +24,15 @@ interface PrinterConfig {
 
 interface PrinterProps extends PrinterConfig {
   afterPrintCallback: () => void;
+  onLineComplete?: () => void; // CV
 }
 
-function usePrinter({ printerSpeed, charactersPerTick, afterPrintCallback }: PrinterProps) {
+function usePrinter({
+  printerSpeed,
+  charactersPerTick,
+  afterPrintCallback,
+  onLineComplete // CV
+}: PrinterProps) {
   const [isPrinting, setIsPrinting] = useState(false);
   const [activeTimeout, setActiveTimeout] = useState<IntervalID | null>(null);
 
@@ -56,6 +64,7 @@ function usePrinter({ printerSpeed, charactersPerTick, afterPrintCallback }: Pri
       newLine,
       state,
       charactersToPrint: charactersPerTick,
+      onLineComplete, // CV
     });
     setPrinterResponse(resp);
     setActiveTimeout(null);
@@ -69,6 +78,7 @@ function usePrinter({ printerSpeed, charactersPerTick, afterPrintCallback }: Pri
       wordFullyPrinted: true,
       newLine: true,
       charactersToPrint: charactersPerTick,
+      onLineComplete, // CV
     });
     setIsPrinting(true);
     setPrinterResponse(resp);

@@ -1,3 +1,5 @@
+// crt-terminal/packages/crt-terminal/src/utils/helpers.ts
+
 const exhaustiveCheck =
   (msg: string) =>
   (arg: never): never => {
